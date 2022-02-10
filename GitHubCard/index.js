@@ -4,12 +4,12 @@ import axios from 'axios';
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-axios.get(`https://api.github.com/users/camyakura`)
-  .then(resp => {
-    console.log(resp);
-  })
-  .catch(err => console.log(err))
-  .finally(() => console.log('done'))
+// axios.get(`https://api.github.com/users/camyakura`)
+//   .then(resp => {
+//     console.log(resp);
+//   })
+//   .catch(err => console.log(err))
+//   .finally(() => console.log('done'))
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -22,6 +22,15 @@ axios.get(`https://api.github.com/users/camyakura`)
   STEP 4: Pass the data received from Github into your function,
     and append the returned markup to the DOM as a child of .cards
 */
+const entryPoint = document.querySelector('.cards');
+axios.get(`https://api.github.com/users/camyakura`)
+  .then(resp => {
+      const myCard = gitCardMaker(resp)
+      entryPoint.appendChild(myCard)
+  })
+  .catch(err => console.log(err))
+  .finally(() => console.log('done'))
+
 
 /*
   STEP 5: Now that you have your own card getting added to the DOM, either
