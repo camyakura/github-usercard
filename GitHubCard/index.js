@@ -1,9 +1,15 @@
+import axios from 'axios';
 /*
   STEP 1: using axios, send a GET request to the following URL
     (replacing the placeholder with your Github name):
     https://api.github.com/users/<your name>
 */
-
+axios.get(`https://api.github.com/users/camyakura`)
+  .then(resp => {
+    console.log(resp);
+  })
+  .catch(err => console.log(err))
+  .finally(() => console.log('done'))
 /*
   STEP 2: Inspect and study the data coming back, this is YOUR
     github info! You will need to understand the structure of this
@@ -50,6 +56,48 @@ const followersArray = [];
     </div>
 */
 
+function gitCardMaker(gitInfo){
+  const gitCard = document.createElement('div');
+  const gitImage = document.createElement('img');
+  const cardInfo = document.createElement('div');
+  const gitName = document.createElement('h3');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+  const webAddress = document.createElement('a');
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  gitCard.appendChild(gitImage);
+  gitCard.appendChild(cardInfo);
+  cardInfo.appendChild(gitName);
+  cardInfo.appendChild(userName);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(webAddress);
+  cardInfo.appendChild(followers);
+  cardInfo.appendChild(following);
+  cardInfo.appendChild(bio);
+
+  gitCard.classList.add('card');
+  gitImage.src = gitInfo.data.avatar_url;
+  cardInfo.classList.add('card-info');
+  gitName.classList.add('name')
+  gitName.textContent = gitInfo.data.name;
+  userName.classList.add('username');
+  userName.textContent = gitInfo.data.login;
+  location.textContent = `Location: ${gitInfo.data.location}`
+  profile.textContent = `Profile: `
+  webAddress.href = gitInfo.data.html_url;
+  webAddress.textContent = gitInfo.data.html_url;
+  followers.textContent = `Followers: ${gitInfo.data.followers}`
+  following.textContent = `Following: ${gitInfo.data.following}`
+  bio.textContent = `Bio: ${gitInfo.data.bio}`
+
+  return gitCard;
+}
+
 /*
   List of LS Instructors Github username's:
     tetondan
@@ -57,4 +105,5 @@ const followersArray = [];
     justsml
     luishrd
     bigknell
+    crharding
 */
